@@ -1,0 +1,35 @@
+{
+  "entryPointStrategy": "packages",
+  "entryPoints": ["libs/ast-types", "libs/csharp-ast", "libs/java-ast"],
+  "theme": "default",
+  "name": "Amplication AST Libraries Documentation",
+  "tsconfig": "tsconfig.base.json",
+  "cleanOutputDir": true,
+  "readme": "libs/README.md",
+  "disableGit": true,
+  "includeVersion": true,
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/format-java.ts"
+  ],
+  "packageOptions": {
+    "entryPoints": ["./src/index.ts"],
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeInternal": false,
+    "excludeExternals": true,
+    "excludeNotDocumented": false,
+    "excludeNotDocumentedKinds": [],
+    "excludeTags": ["@private", "@protected"],
+    "skipErrorChecking": true,
+    "disableSources": true,
+    "validation": {
+      "invalidLink": true,
+      "notDocumented": false
+    },
+    "sort": ["source-order"]
+  }
+}

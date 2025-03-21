@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class basic 1`] = `
+"public partial interface IMyInterface
+{
+    protected Dictionary<string, string> myFieldDictionary;
+    
+    public Task<string> ToString()(string myParameter);
+}
+"
+`;
+
+exports[`class with async and sync methods 1`] = `
+"public interface IMyInterface
+{
+    public Task AsyncAction(string myParameter);
+    public void SyncAction(string myParameter);
+    public Task<string> AsyncStringAction(string myParameter);
+    public string SyncStringAction(string myParameter);
+}
+"
+`;

@@ -1,0 +1,14 @@
+{
+  "name": "@amplication/ast-types",
+  "version": "0.0.2",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

@@ -1,0 +1,18 @@
+export { Annotation } from "./Annotation";
+export { Class } from "./Class";
+export { ClassReference } from "./ClassReference";
+export { GenericClassReference } from "./GenericClassReference";
+export { CodeBlock } from "./CodeBlock";
+export * as dependencies from "./dependencies";
+export { Enum } from "./Enum";
+export { Field } from "./Field";
+export { Method, MethodType } from "./Method";
+export { Parameter } from "./Parameter";
+export { Type } from "./Type";
+export { Interface } from "./Interface";
+export { ClassInstantiation } from "./ClassInstantiation";
+export { MethodInvocation } from "./MethodInvocation";
+export { CoreClassReference } from "./CoreClassReference";
+export { Dictionary } from "./Dictionary";
+export { ProgramClass } from "./ProgramClass";
+export { Solution } from "./SolutionFile";

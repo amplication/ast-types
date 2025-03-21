@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`method basic 1`] = `
+"using System.Threading.ActionResult;
+using MyService.APIs.Dtos;
+
+public async Task<ActionResult<List<myDto>>> MyVoidMethod(int simpleParameter, List<string> listParameter, string? optionalParameter) {
+    Console.WriteLine(@"Received these: {simpleParameter} {listParameter} {optionalParameter}");}
+"
+`;
+
+exports[`method extension method with parameters 1`] = `
+"public static async Task MyExtensionMethod(this int extensionParameter, int simpleParameter, List<string> listParameter, string? optionalParameter) {
+}
+"
+`;
+
+exports[`method extension method without parameters 1`] = `
+"public static async Task MyExtensionMethod(this int extensionParameter) {
+}
+"
+`;

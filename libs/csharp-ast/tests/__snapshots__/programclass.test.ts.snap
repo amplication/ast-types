@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`programclass program class full 1`] = `
+"using Amplication;
+
+Console.WriteLine(@"startFileBlocks");
+try
+{
+    Console.WriteLine(@"builderServicesBlocks");
+    Console.WriteLine(@"appBlocks");
+    app.Run();
+}
+catch(Exception ex)
+{
+    Console.WriteLine(@"catchBlocks");
+}
+finally
+{
+    Console.WriteLine(@"finallyBlocks");
+}
+Console.WriteLine(@"endFileBlocks");
+"
+`;
+
+exports[`programclass program class no finally 1`] = `
+"using Amplication;
+
+Console.WriteLine(@"startFileBlocks");
+try
+{
+    Console.WriteLine(@"builderServicesBlocks");
+    Console.WriteLine(@"appBlocks");
+    app.Run();
+}
+catch(Exception ex)
+{
+    Console.WriteLine(@"catchBlocks");
+}
+Console.WriteLine(@"endFileBlocks");
+"
+`;
+
+exports[`programclass program no catch 1`] = `
+"using Amplication;
+
+Console.WriteLine(@"startFileBlocks");
+try
+{
+    Console.WriteLine(@"builderServicesBlocks");
+    Console.WriteLine(@"appBlocks");
+    app.Run();
+}
+finally
+{
+    Console.WriteLine(@"finallyBlocks");
+}
+Console.WriteLine(@"endFileBlocks");
+"
+`;
+
+exports[`programclass program no try catch 1`] = `
+"using Amplication;
+
+Console.WriteLine(@"startFileBlocks");
+Console.WriteLine(@"builderServicesBlocks");
+Console.WriteLine(@"appBlocks");
+app.Run();
+Console.WriteLine(@"endFileBlocks");
+"
+`;

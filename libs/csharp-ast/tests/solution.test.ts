@@ -1,0 +1,73 @@
+import { Solution } from "../src/lib/ast/SolutionFile";
+import { Writer } from "../src/lib/core/Writer";
+
+const EXAMPLE_SOLUTION_FILE = `Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersMicroservice.Common", "OrdersMicroservice.Common\\OrdersMicroservice.Common.csproj", "{57C69281-F308-4C2F-A5AC-FA414E954DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersMicroservice.Services", "OrdersMicroservice.Services\\OrdersMicroservice.Services.csproj", "{98A9457E-05D4-4391-BCE9-F88D50D6E0B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersMicroservice.DAL", "OrdersMicroservice.DAL\\OrdersMicroservice.DAL.csproj", "{A0A3CAEF-9FDC-439D-B88C-1D957BAA33D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersMicroservice.WebApi", "OrdersMicroservice.WebApi\\OrdersMicroservice.WebApi.csproj", "{AED0E057-ECC2-41B6-A703-B424A1949CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersMicroservice.Tests", "OrdersMicroservice.Tests\\OrdersMicroservice.Tests.csproj", "{D631912A-3B59-406C-B00F-C7EAFB63566B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57C69281-F308-4C2F-A5AC-FA414E954DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C69281-F308-4C2F-A5AC-FA414E954DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C69281-F308-4C2F-A5AC-FA414E954DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C69281-F308-4C2F-A5AC-FA414E954DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A9457E-05D4-4391-BCE9-F88D50D6E0B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A9457E-05D4-4391-BCE9-F88D50D6E0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A9457E-05D4-4391-BCE9-F88D50D6E0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A9457E-05D4-4391-BCE9-F88D50D6E0B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A3CAEF-9FDC-439D-B88C-1D957BAA33D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A3CAEF-9FDC-439D-B88C-1D957BAA33D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A3CAEF-9FDC-439D-B88C-1D957BAA33D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A3CAEF-9FDC-439D-B88C-1D957BAA33D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED0E057-ECC2-41B6-A703-B424A1949CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED0E057-ECC2-41B6-A703-B424A1949CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED0E057-ECC2-41B6-A703-B424A1949CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED0E057-ECC2-41B6-A703-B424A1949CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D631912A-3B59-406C-B00F-C7EAFB63566B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D631912A-3B59-406C-B00F-C7EAFB63566B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D631912A-3B59-406C-B00F-C7EAFB63566B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D631912A-3B59-406C-B00F-C7EAFB63566B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+`;
+
+describe("SolutionFile", () => {
+  it("should parse the solution file correctly and write it back", () => {
+    const solution = new Solution();
+    solution.parse(EXAMPLE_SOLUTION_FILE);
+    const writer = new Writer({ namespace: "Amplication" });
+    solution.write(writer);
+    expect(writer.toString()).toEqual(EXAMPLE_SOLUTION_FILE);
+  });
+
+  it("should parse the solution file, add a project correctly, and write it back", () => {
+    const solution = new Solution();
+    solution.parse(EXAMPLE_SOLUTION_FILE);
+    solution.addProject(
+      "OrdersMicroservice.Other",
+      "OrdersMicroservice.Other\\OrdersMicroservice.Other.csproj",
+      "{57C69281-F308-4C2F-A5AC-FA414E954DEF}",
+      "{57C69281-1234-5678-A5AC-FA414E954DEF}"
+    );
+    const writer = new Writer({ namespace: "Amplication" });
+    solution.write(writer);
+    expect(writer.toString()).toMatchSnapshot();
+  });
+});

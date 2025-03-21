@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class basic 1`] = `
+"using System.Text.Json.Serialization;
+
+namespace Amplication;
+
+public partial class MyClassName
+{
+    [JsonProperty("watered")]
+    [JsonAttribute("JsonAttribute")]
+    public bool watered { get; set; }
+}
+"
+`;
+
+exports[`class complex 1`] = `
+"using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc;
+using MyService.APIs.Dtos;
+using Microsoft.AspNetCore.Authorization;;
+
+namespace Amplication;
+
+public abstract partial class MyClassName
+{
+    protected readonly string _myField;
+
+    /// <summary>
+    /// Whether the myClass has been watered
+    /// </summary>
+    [JsonProperty("watered")]
+    public bool watered { get; init; }
+
+    public async Task<ActionResult<List<myDto>>> MyVoidMethod(int simpleParameter, List<string> listParameter, string? optionalParameter, [FromQuery()]
+    int parameterWithAnnotation) {
+        Console.WriteLine(@"Received these: {simpleParameter} {listParameter} {optionalParameter}");}
+
+    [HttpGet({Id})]
+    [Authorize(Roles = "admin,user")]
+    public async Task<int> MyMethod(int simpleParameter, List<string> listParameter, string? optionalParameter) {
+        Console.WriteLine(@"Received these: {simpleParameter} {listParameter} {optionalParameter}");}
+
+}
+"
+`;
+
+exports[`class enum 1`] = `
+"using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
+
+namespace Amplication;
+
+[JsonConverter(typeof(StringEnumConverter))]
+public enum MyEnum
+{
+    [EnumMember(Value = "value1")]
+    Value1,
+
+    [EnumMember(Value = "value2")]
+    Value2
+}
+"
+`;
+
+exports[`class is abstract 1`] = `
+"namespace Amplication;
+
+public abstract partial class MyClassName
+{
+}
+"
+`;
+
+exports[`class is static 1`] = `
+"namespace Amplication;
+
+public static class MyClassName
+{
+}
+"
+`;

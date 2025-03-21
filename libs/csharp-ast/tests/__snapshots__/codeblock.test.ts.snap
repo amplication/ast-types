@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code block string codeblock with references 1`] = `
+"using System.Diagnostics;
+
+namespace Amplication;
+
+public abstract partial class MyClassName
+{
+    public async Task MyVoidMethod(int simpleParameter, List<string> listParameter, string? optionalParameter) {
+        Debug.WriteLine("fake log");}
+
+}
+"
+`;
+
+exports[`code block string codeblock with writer 1`] = `
+"namespace Amplication;
+
+public sealed partial class MyClassName
+{
+    public async Task MyVoidMethod(int simpleParameter, List<string> listParameter, string? optionalParameter) {
+    }
+
+}
+"
+`;
+
+exports[`code block string codeblock without references 1`] = `
+"namespace Amplication;
+
+public abstract partial class MyClassName
+{
+    public async Task MyVoidMethod(int simpleParameter, List<string> listParameter, string? optionalParameter) {
+        Debug.WriteLine("fake log");}
+
+}
+"
+`;
