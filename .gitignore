@@ -8,6 +8,7 @@ helm/**/secrets/
 *.tgz
 values-secret*
 dist/
+docs/
 packages/.server-id
 .amplication/storage/
 .env.local

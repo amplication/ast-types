@@ -5,7 +5,6 @@
   "name": "Amplication AST Libraries Documentation",
   "tsconfig": "tsconfig.base.json",
   "cleanOutputDir": true,
-  "readme": "libs/README.md",
   "disableGit": true,
   "includeVersion": true,
   "exclude": [
