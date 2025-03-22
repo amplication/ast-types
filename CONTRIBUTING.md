@@ -19,7 +19,6 @@ If you'd like to implement a new feature, it's always good to be in touch with u
 - For a Major Feature, first open an issue and outline your proposal. This will let us coordinate efforts, prevent duplication of work, and help you craft the change so that it's successfully integrated into the project.
 - Small Features can be crafted and directly [submitted as a Pull Request](#submit-pr).
 
-
 If you don't feel ready to make a code contribution yet, no problem! You can also check out the [documentation issues](https://github.com/amplication/amplication/labels/type%3A%20docs).
 
 # <a name="submit-pr"></a> How do I make a code contribution?
@@ -37,22 +36,22 @@ You can use [this view](https://github.com/amplication/amplication/issues?q=is%3
 
 ## Step 1: Make a fork
 
-Fork the Amplication repository to your GitHub organization. This means that you'll have a copy of the repository under _your-GitHub-username/repository-name_.
+Fork the Amplication AST Types repository to your GitHub organization. This means that you'll have a copy of the repository under _your-GitHub-username/ast-types_.
 
 > :accessibility: Un-check "Copy the DEFAULT branch only"
 
 ## Step 2: Clone the repository to your local machine
 
 ```sh
-git clone -b next https://github.com/{your-GitHub-username}/amplication.git
-
+git clone https://github.com/{your-GitHub-username}/ast-types.git
 ```
 
 ## Step 3: Prepare the development environment
 
-Set up and run the development environment on your local machine following the [README](./README.md#Development)
+Set up and run the development environment on your local machine following the [README](./README.md)
 
 ## Step 4: Create a branch
+
 Create a new branch for your changes.
 In order to keep branch names uniform and easy-to-understand, please use the following conventions for branch naming.
 Generally speaking, it is a good idea to add a group/type prefix to a branch.
@@ -98,7 +97,7 @@ git push origin branch-name-here
 
 In GitHub, do the following to submit a pull request to the upstream repository:
 
-1.  Give the pull request a title and a short description of the changes made following the template. Include also the issue or bug number associated with your change. Explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer.  <br/> ⚠️ **Make sure your pull request target the `next` branch.**
+1.  Give the pull request a title and a short description of the changes made following the template. Include also the issue or bug number associated with your change. Explain the changes that you made, any issues you think exist with the pull request you made, and any questions you have for the maintainer.
  
   > Pull request title should be in the form of `<type>(<package>): <subject>` as per commit messages.
 Remember, it's okay if your pull request is not perfect (no pull request ever is). The reviewer will be able to help you fix any problems and improve it!
@@ -120,7 +119,7 @@ We structure our commit messages like this:
 Example
 
 ```
-fix(server): missing entity on init
+fix(java-ast): missing annotation on class generation
 ```
 
 ### Types:
@@ -136,9 +135,9 @@ fix(server): missing entity on init
 
 ### Packages:
 
-- **server**
-- **client**
-- **data-service-gen**
+- **ast-types**
+- **java-ast**
+- **csharp-ast**
 
 ## Code of conduct
 

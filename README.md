@@ -10,6 +10,8 @@ This repository contains the following libraries:
 
 These libraries provide functionality for generating Abstract Syntax Trees (AST) for different programming languages in the Amplication platform. They are used to generate type-safe, well-structured code for various programming languages.
 
+This is a component of the [Amplication](https://github.com/amplication/amplication) platform.
+
 ### Key Features
 
 - Type-safe AST generation
@@ -42,6 +44,21 @@ The C# AST library provides functionality for generating C# code through an abst
 - Attributes and documentation
 - Namespace management
 
+## Installation
+
+To install the libraries:
+
+```bash
+# For Java AST
+npm install @amplication/java-ast
+
+# For C# AST
+npm install @amplication/csharp-ast
+
+# For AST Types
+npm install @amplication/ast-types
+```
+
 ## Getting Started
 
 To use these libraries in your project:
@@ -54,4 +71,8 @@ import { Class, Interface, Method } from '@amplication/csharp-ast';
 
 ## Contributing
 
-Please read our [Contributing Guide](https://github.com/amplication/amplication/blob/master/CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests. 
+Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE). 
