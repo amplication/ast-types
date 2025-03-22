@@ -1,5 +1,28 @@
 # csharp-ast
 
+
+## Scope and Purpose
+
+The C# AST library is not intended to cover all C# language functionality. Instead, it focuses on the elements needed to create foundation and boilerplate code with Amplication plugins. The library provides building blocks for generating well-structured C# code for common patterns and use cases.
+
+When more specialized or custom code is needed, the `CodeBlock` class can be used as a generic node that can include any code as a string:
+
+```typescript
+import { CodeBlock } from '@amplication/csharp-ast';
+
+// Create a custom code block for specialized logic
+const customLogic = new CodeBlock(`
+  // Custom C# implementation
+  using (var client = new HttpClient())
+  {
+    var response = await client.GetAsync(endpoint);
+    return await response.Content.ReadAsStringAsync();
+  }
+`);
+
+// Add to your class or method
+```
+
 This library was generated with [Nx](https://nx.dev).
 
 ## Building
