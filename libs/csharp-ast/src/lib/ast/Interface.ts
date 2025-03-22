@@ -120,9 +120,7 @@ export class Interface extends AstNode {
       field.write(writer);
       writer.writeLine("");
     }
-    writer.dedent();
 
-    writer.indent();
     for (const method of this.methods) {
       method.write(writer);
       writer.writeLine("");
