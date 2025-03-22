@@ -2,6 +2,32 @@
 
 A library for generating Java code through an abstract syntax tree (AST) approach. This library allows you to programmatically generate Java code in a type-safe manner.
 
+
+## Scope and Purpose
+
+The Java AST library is not intended to cover all Java language functionality. Instead, it focuses on the elements needed to create foundation and boilerplate code with Amplication plugins. The library provides building blocks for generating well-structured Java code for common patterns and use cases.
+
+When more specialized or custom code is needed, the `CodeBlock` class can be used as a generic node that can include any code as a string:
+
+```typescript
+import { CodeBlock } from '@amplication/java-ast';
+
+// Create a custom code block for specialized logic
+const customLogic = new CodeBlock(`
+  // Custom Java implementation
+  try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+    String line;
+    while ((line = reader.readLine()) != null) {
+      processLine(line);
+    }
+  } catch (IOException e) {
+    logger.error("Error reading file", e);
+  }
+`);
+
+// Add to your class or method
+```
+
 ## Installation
 
 ```sh
