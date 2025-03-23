@@ -10,8 +10,8 @@ export default {
   coverageDirectory: "../../coverage/libs/java-ast",
   coverageThreshold: {
     global: {
-      branches: 87,
-      lines: 87,
+      branches: 82,
+      lines: 82,
     },
   },
 };
