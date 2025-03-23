@@ -10,8 +10,8 @@ export default {
   coverageDirectory: "../../coverage/libs/csharp-ast",
   coverageThreshold: {
     global: {
-      branches: 73,
-      lines: 74,
+      branches: 90,
+      lines: 90,
     },
   },
 };
