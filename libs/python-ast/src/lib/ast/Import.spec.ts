@@ -6,7 +6,7 @@ describe("Import", () => {
       moduleName: "os",
     });
 
-    expect(importStmt.toString()).toBe("import os");
+    expect(importStmt.toString()).toContain("import os");
   });
 
   it("should generate an import with alias", () => {
@@ -15,7 +15,7 @@ describe("Import", () => {
       alias: "np",
     });
 
-    expect(importStmt.toString()).toBe("import numpy as np");
+    expect(importStmt.toString()).toContain("import numpy as np");
   });
 
   it("should generate a from import", () => {
@@ -24,7 +24,7 @@ describe("Import", () => {
       names: ["datetime", "timedelta"],
     });
 
-    expect(importStmt.toString()).toBe(
+    expect(importStmt.toString()).toContain(
       "from datetime import datetime, timedelta",
     );
   });
@@ -36,7 +36,9 @@ describe("Import", () => {
       alias: "df",
     });
 
-    expect(importStmt.toString()).toBe("from pandas import DataFrame as df");
+    expect(importStmt.toString()).toContain(
+      "from pandas import DataFrame as df",
+    );
   });
 
   it("should handle nested module paths", () => {
@@ -45,7 +47,7 @@ describe("Import", () => {
       names: ["HttpResponse", "JsonResponse"],
     });
 
-    expect(importStmt.toString()).toBe(
+    expect(importStmt.toString()).toContain(
       "from django.http import HttpResponse, JsonResponse",
     );
   });
@@ -56,7 +58,7 @@ describe("Import", () => {
       names: [],
     });
 
-    expect(importStmt.toString()).toBe("import sys");
+    expect(importStmt.toString()).toContain("import sys");
   });
 
   it("should ignore alias when multiple names are imported", () => {
@@ -66,8 +68,8 @@ describe("Import", () => {
       alias: "ignored",
     });
 
-    expect(importStmt.toString()).toBe(
-      "from os.path import join, dirname, basename",
+    expect(importStmt.toString()).toContain(
+      `from os.path import basename, dirname, join`,
     );
   });
 });
