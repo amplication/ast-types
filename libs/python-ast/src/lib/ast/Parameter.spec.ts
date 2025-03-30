@@ -111,7 +111,8 @@ describe("Parameter", () => {
       name: "path",
       type: new ClassReference({ name: "Path", moduleName: "pathlib" }),
     });
-    expect(param.toString()).toBe("path: Path");
+    expect(param.toString()).toContain("from pathlib import Path");
+    expect(param.toString()).toContain("path: Path");
   });
 
   it("should handle parameter with imported type", () => {
