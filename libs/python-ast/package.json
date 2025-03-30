@@ -1,0 +1,11 @@
+{
+  "name": "@amplication/python-ast",
+  "version": "0.1.0",
+  "description": "Python AST library for Amplication",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@amplication/ast-types": "*"
+  }
+}

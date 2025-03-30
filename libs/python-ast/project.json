@@ -1,0 +1,37 @@
+{
+  "name": "python-ast",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/python-ast/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/python-ast",
+        "main": "libs/python-ast/src/index.ts",
+        "tsConfig": "libs/python-ast/tsconfig.lib.json",
+        "assets": ["libs/python-ast/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/python-ast/**/*.ts",
+          "libs/python-ast/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/python-ast"],
+      "options": {
+        "jestConfig": "libs/python-ast/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
