@@ -84,6 +84,12 @@ export class Module extends AstNode {
    * @param {Writer} writer - The writer to write to
    */
   public write(writer: Writer): void {
+    // Write imports
+    if (this.imports.length > 0) {
+      this.imports.forEach((import_) => import_.write(writer));
+      writer.newLine();
+    }
+
     // Write module docstring if provided
     if (this.docstring) {
       writer.writeLine(`"""${this.docstring}"""`);
