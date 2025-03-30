@@ -100,9 +100,16 @@ export class Writer implements IWriter {
       } else {
         // From import
         const moduleImports = fromImports.get(moduleName) || new Set();
-        node.names.forEach((name) => {
-          moduleImports.add(name + (node.alias ? ` as ${node.alias}` : ""));
-        });
+        // Only apply alias if there's exactly one name being imported
+        if (node.names.length === 1) {
+          node.names.forEach((name) => {
+            moduleImports.add(name + (node.alias ? ` as ${node.alias}` : ""));
+          });
+        } else {
+          node.names.forEach((name) => {
+            moduleImports.add(name);
+          });
+        }
         fromImports.set(moduleName, moduleImports);
       }
     }
@@ -117,9 +124,9 @@ export class Writer implements IWriter {
         );
       });
 
-    return (
-      importStatements.join("\n") + (importStatements.length > 0 ? "\n\n" : "")
-    );
+    return importStatements.length > 0
+      ? importStatements.join("\n") + "\n\n"
+      : "";
   }
 
   toString(): string {
