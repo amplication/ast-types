@@ -8,10 +8,10 @@ import { ClassReference } from "./ClassReference";
 export interface ParameterArgs {
   /** The name of the parameter */
   name: string;
-  /** Type annotation for the parameter */
+  /** The type annotation for the parameter */
   type?: ClassReference;
-  /** Default value for the parameter */
-  defaultValue?: string;
+  /** The default value for the parameter */
+  default_?: string;
   /** Whether this is a keyword-only parameter (after *) */
   isKeywordOnly?: boolean;
   /** Whether this is a positional-only parameter (before /) */
@@ -23,19 +23,19 @@ export interface ParameterArgs {
 }
 
 /**
- * Represents a parameter in a Python function or method.
- * This class handles different parameter types including positional, keyword,
- * and variable parameters with type annotations and default values.
+ * Represents a Python parameter in a function or method definition.
+ * This class handles the generation of parameter declarations including
+ * type annotations and default values.
  *
  * @extends {AstNode}
  */
 export class Parameter extends AstNode {
   /** The name of the parameter */
   public readonly name: string;
-  /** Type annotation for the parameter */
+  /** The type annotation for the parameter */
   public readonly type?: ClassReference;
-  /** Default value for the parameter */
-  public readonly defaultValue?: string;
+  /** The default value for the parameter */
+  public readonly default_?: string;
   /** Whether this is a keyword-only parameter */
   public readonly isKeywordOnly: boolean;
   /** Whether this is a positional-only parameter */
@@ -52,7 +52,7 @@ export class Parameter extends AstNode {
   constructor({
     name,
     type,
-    defaultValue,
+    default_,
     isKeywordOnly = false,
     isPositionalOnly = false,
     isVariablePositional = false,
@@ -61,7 +61,7 @@ export class Parameter extends AstNode {
     super();
     this.name = name;
     this.type = type;
-    this.defaultValue = defaultValue;
+    this.default_ = default_;
     this.isKeywordOnly = isKeywordOnly;
     this.isPositionalOnly = isPositionalOnly;
     this.isVariablePositional = isVariablePositional;
@@ -83,7 +83,7 @@ export class Parameter extends AstNode {
   }
 
   /**
-   * Writes the parameter to the writer.
+   * Writes the parameter declaration to the writer.
    * @param {Writer} writer - The writer to write to
    */
   public write(writer: Writer): void {
@@ -100,8 +100,9 @@ export class Parameter extends AstNode {
       this.type.write(writer);
     }
 
-    if (this.defaultValue) {
-      writer.write(` = ${this.defaultValue}`);
+    if (this.default_) {
+      writer.write(" = ");
+      writer.write(this.default_);
     }
   }
 }

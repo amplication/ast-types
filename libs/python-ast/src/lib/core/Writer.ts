@@ -1,6 +1,5 @@
 import { IWriter, IAstNode } from "@amplication/ast-types";
 import { Import } from "../ast/Import";
-import { ClassReference } from "../ast/ClassReference";
 
 export interface WriterArgs {
   currentModuleName?: string;
@@ -14,7 +13,7 @@ export class Writer implements IWriter {
   private indentLevel = 0;
   private readonly indentString = "    ";
   private lastCharacterIsNewline = true;
-  private imports: Set<Import | ClassReference> = new Set();
+  private imports: Set<Import> = new Set();
   private currentModuleName?: string;
 
   constructor(args: WriterArgs = {}) {
@@ -57,7 +56,7 @@ export class Writer implements IWriter {
     }
   }
 
-  addImport(node: Import | ClassReference): void {
+  addImport(node: Import): void {
     this.imports.add(node);
   }
 
@@ -67,31 +66,20 @@ export class Writer implements IWriter {
 
     // Process all imports
     for (const node of this.imports) {
-      if (node instanceof Import) {
-        const moduleName = node.moduleName;
-        if (!moduleName || moduleName === this.currentModuleName) continue;
+      const moduleName = node.moduleName;
+      if (!moduleName || moduleName === this.currentModuleName) continue;
 
-        if (node.names.length === 0) {
-          // Simple import
-          importStatements.push(
-            `import ${moduleName}${node.alias ? ` as ${node.alias}` : ""}`,
-          );
-        } else {
-          // From import
-          const moduleImports = fromImports.get(moduleName) || new Set();
-          node.names.forEach((name) => {
-            moduleImports.add(name);
-          });
-          fromImports.set(moduleName, moduleImports);
-        }
-      } else if (node instanceof ClassReference) {
-        const moduleName = node.moduleName;
-        if (!moduleName || moduleName === this.currentModuleName) continue;
-
-        const moduleImports = fromImports.get(moduleName) || new Set();
-        moduleImports.add(
-          `${node.name}${node.alias ? ` as ${node.alias}` : ""}`,
+      if (node.names.length === 0) {
+        // Simple import
+        importStatements.push(
+          `import ${moduleName}${node.alias ? ` as ${node.alias}` : ""}`,
         );
+      } else {
+        // From import
+        const moduleImports = fromImports.get(moduleName) || new Set();
+        node.names.forEach((name) => {
+          moduleImports.add(name + (node.alias ? ` as ${node.alias}` : ""));
+        });
         fromImports.set(moduleName, moduleImports);
       }
     }

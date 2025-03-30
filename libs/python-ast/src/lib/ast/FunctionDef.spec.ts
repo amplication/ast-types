@@ -137,7 +137,7 @@ describe("FunctionDef", () => {
         new Parameter({
           name: "timeout",
           type: new ClassReference({ name: "int" }),
-          defaultValue: "30",
+          default_: "30",
           isKeywordOnly: true,
         }),
         new Parameter({

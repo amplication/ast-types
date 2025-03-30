@@ -114,7 +114,7 @@ describe("Module", () => {
     module.addCodeBlock(
       new CodeBlock({
         code: 'DEBUG = True\nVERSION = "1.0.0"\nBASE_DIR = os.path.dirname(os.path.abspath(__file__))',
-        references: [new ClassReference({ name: "os", moduleName: "os" })],
+        imports: [new Import({ moduleName: "os", names: ["os"] })],
       }),
     );
 
@@ -159,7 +159,7 @@ describe("Module", () => {
         new Parameter({
           name: "debug",
           type: new ClassReference({ name: "bool" }),
-          defaultValue: "False",
+          default_: "False",
         }),
       ],
     });

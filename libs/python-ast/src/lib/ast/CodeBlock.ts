@@ -1,6 +1,6 @@
 import { AstNode } from "../core/AstNode";
 import { Writer } from "../core/Writer";
-import { ClassReference } from "./ClassReference";
+import { Import } from "./Import";
 
 /**
  * Configuration arguments for creating a Python code block.
@@ -9,13 +9,13 @@ export type CodeBlockArgs =
   | {
       /** The code to write */
       code: string;
-      /** A list of class references that are used in the code */
-      references?: ClassReference[] | null;
+      /** A list of imports that are used in the code */
+      imports?: Import[] | null;
     }
   | {
       /** A function that writes code to the writer */
       code: (writer: Writer) => void;
-      references?: never;
+      imports?: never;
     };
 
 /**
@@ -29,8 +29,8 @@ export type CodeBlockArgs =
 export class CodeBlock extends AstNode {
   /** The code content or code generation function */
   private value: string | ((writer: Writer) => void);
-  /** The class references used in the code */
-  private references: ClassReference[];
+  /** The imports used in the code */
+  private imports: Import[];
 
   /**
    * Creates a new Python code block.
@@ -39,10 +39,10 @@ export class CodeBlock extends AstNode {
   constructor(args: CodeBlockArgs) {
     super();
     this.value = args.code;
-    this.references = [];
+    this.imports = [];
 
-    if ("references" in args && args.references) {
-      this.references.push(...args.references);
+    if ("imports" in args && args.imports) {
+      this.imports.push(...args.imports);
     }
   }
 
@@ -52,7 +52,7 @@ export class CodeBlock extends AstNode {
    */
   public write(writer: Writer): void {
     if (typeof this.value === "string") {
-      this.references.forEach((reference) => writer.addImport(reference));
+      this.imports.forEach((import_) => writer.addImport(import_));
       writer.write(this.value);
     } else {
       this.value(writer);

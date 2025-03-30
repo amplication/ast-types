@@ -9,7 +9,7 @@ export interface ImportArgs {
   moduleName: string;
   /** The names to import from the module (if using 'from ... import ...') */
   names?: string[];
-  /** The alias for the module (if using 'import ... as ...') */
+  /** The alias for the module or imported name (if using 'import ... as ...') */
   alias?: string;
 }
 
@@ -25,7 +25,7 @@ export class Import extends AstNode {
   public readonly moduleName: string;
   /** The names to import from the module */
   public readonly names: string[];
-  /** The alias for the module */
+  /** The alias for the module or imported name */
   public readonly alias?: string;
 
   /**

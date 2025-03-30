@@ -1,6 +1,6 @@
 import { CodeBlock } from "./CodeBlock";
-import { ClassReference } from "./ClassReference";
 import { Writer } from "../core/Writer";
+import { Import } from "./Import";
 
 describe("CodeBlock", () => {
   it("should generate a simple code block", () => {
@@ -27,7 +27,7 @@ print(x + y)`,
   it("should handle code with imports", () => {
     const block = new CodeBlock({
       code: "path = Path('/tmp')",
-      references: [new ClassReference({ name: "Path", moduleName: "pathlib" })],
+      imports: [new Import({ moduleName: "pathlib", names: ["Path"] })],
     });
 
     const output = block.toString();
@@ -39,9 +39,9 @@ print(x + y)`,
     const block = new CodeBlock({
       code: `now = datetime.now()
 uuid = UUID.uuid4()`,
-      references: [
-        new ClassReference({ name: "datetime", moduleName: "datetime" }),
-        new ClassReference({ name: "UUID", moduleName: "uuid" }),
+      imports: [
+        new Import({ moduleName: "datetime", names: ["datetime"] }),
+        new Import({ moduleName: "uuid", names: ["UUID"] }),
       ],
     });
 

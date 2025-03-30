@@ -130,7 +130,7 @@ describe("ClassDef", () => {
         new Parameter({
           name: "is_active",
           type: new ClassReference({ name: "bool" }),
-          defaultValue: "True",
+          default_: "True",
         }),
       ],
     });

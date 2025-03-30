@@ -116,7 +116,7 @@ describe("Python AST Integration", () => {
             name: "List",
             moduleName: "typing",
           }),
-          defaultValue: "None",
+          default_: "None",
         }),
       ],
       returnType: new ClassReference({ name: "User" }),

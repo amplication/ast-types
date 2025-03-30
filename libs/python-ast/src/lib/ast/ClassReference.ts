@@ -1,5 +1,6 @@
 import { AstNode } from "../core/AstNode";
 import { Writer } from "../core/Writer";
+import { Import } from "./Import";
 
 /**
  * Configuration arguments for creating a Python class reference.
@@ -15,7 +16,8 @@ export interface ClassReferenceArgs {
 
 /**
  * Represents a reference to a Python class.
- * This class is used to track and generate imports for classes used in the code.
+ * This class handles the generation of class references in type annotations
+ * and manages the necessary imports for the referenced classes.
  *
  * @extends {AstNode}
  */
@@ -26,6 +28,8 @@ export class ClassReference extends AstNode {
   public readonly moduleName?: string;
   /** Optional alias for the class */
   public readonly alias?: string;
+  /** The import node for this class reference */
+  private readonly importNode: Import | null = null;
 
   /**
    * Creates a new Python class reference.
@@ -36,6 +40,15 @@ export class ClassReference extends AstNode {
     this.name = name;
     this.moduleName = moduleName;
     this.alias = alias;
+
+    // Create an import node if the class is from a module
+    if (moduleName) {
+      this.importNode = new Import({
+        moduleName,
+        names: [name],
+        alias,
+      });
+    }
   }
 
   /**
@@ -43,8 +56,8 @@ export class ClassReference extends AstNode {
    * @param {Writer} writer - The writer to write to
    */
   public write(writer: Writer): void {
-    if (this.moduleName) {
-      writer.addImport(this);
+    if (this.importNode) {
+      writer.addImport(this.importNode);
     }
     writer.write(this.alias || this.name);
   }
