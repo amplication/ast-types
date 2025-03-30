@@ -31,6 +31,14 @@
         "jestConfig": "libs/python-ast/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "update-snapshot": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/python-ast"],
+      "options": {
+        "jestConfig": "libs/python-ast/jest.config.ts",
+        "updateSnapshot": true
+      }
     }
   },
   "tags": []
