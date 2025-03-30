@@ -66,7 +66,8 @@ describe("Parameter", () => {
       type: new ClassReference({ name: "Path", moduleName: "pathlib" }),
       default_: 'Path(".")',
     });
-    expect(param.toString()).toBe('path: Path = Path(".")');
+    expect(param.toString()).toContain("from pathlib import Path");
+    expect(param.toString()).toContain('path: Path = Path(".")');
   });
 
   it("should generate a keyword-only parameter", () => {
