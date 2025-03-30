@@ -21,10 +21,33 @@ export class Writer implements IWriter {
   }
 
   write(text: string): void {
-    if (text) {
-      this.buffer.push(text);
-      this.lastCharacterIsNewline = text.endsWith("\n");
+    if (!text) return;
+
+    // If we're at the start of a line and have indentation, add it
+    if (this.lastCharacterIsNewline && this.indentLevel > 0) {
+      this.buffer.push(this.indentString.repeat(this.indentLevel));
     }
+
+    // Split text into lines and handle each line's indentation
+    const lines = text.split("\n");
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Write the line
+      if (line.length > 0) {
+        this.buffer.push(line);
+      }
+
+      // If this isn't the last line, add a newline and prepare for indentation
+      if (i < lines.length - 1) {
+        this.buffer.push("\n");
+        if (this.indentLevel > 0) {
+          this.buffer.push(this.indentString.repeat(this.indentLevel));
+        }
+      }
+    }
+
+    this.lastCharacterIsNewline = text.endsWith("\n");
   }
 
   writeNode(node: IAstNode): void {
@@ -32,7 +55,7 @@ export class Writer implements IWriter {
   }
 
   writeLine(text = ""): void {
-    this.write(this.indentString.repeat(this.indentLevel) + text);
+    this.write(text);
     this.writeNewLineIfLastLineNot();
   }
 
