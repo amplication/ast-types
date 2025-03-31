@@ -4,6 +4,7 @@ This repository contains the following libraries:
 
 - Java AST library (java-ast)
 - C# AST library (csharp-ast)
+- Python AST library (python-ast)
 - Common AST types and interfaces (ast-types)
 
 ## Overview
@@ -26,7 +27,7 @@ The AST libraries are not intended to cover all language functionality. Instead,
 When more specialized or custom code is needed, the `CodeBlock` can be used as a generic node that can include any code as a string. This flexibility allows you to generate both structured AST-based code and custom code blocks when necessary.
 
 ```typescript
-import { CodeBlock } from '@amplication/java-ast'; // or '@amplication/csharp-ast'
+import { CodeBlock } from '@amplication/java-ast'; // or '@amplication/csharp-ast' or '@amplication/python-ast'
 
 // Create a custom code block when needed
 const customLogic = new CodeBlock(`
@@ -64,6 +65,15 @@ The C# AST library provides functionality for generating C# code through an abst
 - Attributes and documentation
 - Namespace management
 
+#### python-ast
+The Python AST library provides functionality for generating Python code through an abstract syntax tree. It supports:
+- Class and function definitions
+- Method decorators and type annotations
+- Module and import management
+- Docstring generation
+- Static and class methods
+- Async functions
+
 ## Installation
 
 To install the libraries:
@@ -74,6 +84,9 @@ npm install @amplication/java-ast
 
 # For C# AST
 npm install @amplication/csharp-ast
+
+# For Python AST
+npm install @amplication/python-ast
 
 # For AST Types
 npm install @amplication/ast-types
@@ -87,6 +100,8 @@ To use these libraries in your project:
 import { Class, Interface, Method } from '@amplication/java-ast';
 // or
 import { Class, Interface, Method } from '@amplication/csharp-ast';
+// or
+import { ClassDef, FunctionDef, Decorator } from '@amplication/python-ast';
 ```
 
 ## Contributing

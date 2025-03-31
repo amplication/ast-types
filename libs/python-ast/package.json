@@ -1,7 +1,7 @@
 {
   "name": "@amplication/python-ast",
   "version": "0.1.0",
-  "description": "Python AST library for Amplication",
+  "description": "Python AST library in TypeScript",
   "publishConfig": {
     "access": "public"
   },
