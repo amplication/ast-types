@@ -6,6 +6,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@amplication/ast-types": "*"
+    "@amplication/ast-types": "*",
+    "tslib": "^2.3.0"
   }
 }
