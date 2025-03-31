@@ -1,6 +1,11 @@
 {
   "entryPointStrategy": "packages",
-  "entryPoints": ["libs/ast-types", "libs/csharp-ast", "libs/java-ast"],
+  "entryPoints": [
+    "libs/ast-types",
+    "libs/csharp-ast",
+    "libs/java-ast",
+    "libs/python-ast"
+  ],
   "theme": "default",
   "name": "Amplication AST Libraries Documentation",
   "tsconfig": "tsconfig.base.json",

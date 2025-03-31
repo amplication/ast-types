@@ -1,0 +1,12 @@
+{
+  "name": "@amplication/python-ast",
+  "version": "0.1.0",
+  "description": "Python AST library in TypeScript",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@amplication/ast-types": "*",
+    "tslib": "^2.3.0"
+  }
+}
