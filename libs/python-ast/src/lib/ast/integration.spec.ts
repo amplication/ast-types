@@ -226,7 +226,7 @@ if __name__ == "__main__":
     expect(exampleIndex).toBeGreaterThan(classIndex);
 
     // Check for specific content
-    expect(output).toContain("from typing import List, Optional, Dict");
+    expect(output).toContain("from typing import Dict, List, Optional");
     expect(output).toContain("from datetime import datetime");
     expect(output).toContain("from uuid import UUID");
     expect(output).toContain("from dataclasses import dataclass, field");

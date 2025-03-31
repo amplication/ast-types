@@ -30,12 +30,8 @@ export class Module extends AstNode {
 
   /** The imports defined in this module */
   private imports: Import[] = [];
-  /** The functions defined in this module */
-  private functions: FunctionDef[] = [];
-  /** The classes defined in this module */
-  private classes: ClassDef[] = [];
-  /** Global code blocks for the module */
-  private codeBlocks: CodeBlock[] = [];
+  /** The children nodes (functions, classes, code blocks) in order of addition */
+  private children: (FunctionDef | ClassDef | CodeBlock)[] = [];
 
   /**
    * Creates a new Python module.
@@ -60,7 +56,7 @@ export class Module extends AstNode {
    * @param {FunctionDef} functionDef - The function to add
    */
   public addFunction(functionDef: FunctionDef): void {
-    this.functions.push(functionDef);
+    this.children.push(functionDef);
   }
 
   /**
@@ -68,7 +64,7 @@ export class Module extends AstNode {
    * @param {ClassDef} classDef - The class to add
    */
   public addClass(classDef: ClassDef): void {
-    this.classes.push(classDef);
+    this.children.push(classDef);
   }
 
   /**
@@ -76,7 +72,7 @@ export class Module extends AstNode {
    * @param {CodeBlock} codeBlock - The code block to add
    */
   public addCodeBlock(codeBlock: CodeBlock): void {
-    this.codeBlocks.push(codeBlock);
+    this.children.push(codeBlock);
   }
 
   /**
@@ -96,37 +92,11 @@ export class Module extends AstNode {
       writer.newLine();
     }
 
-    // Write global code blocks that should appear at the top
-    if (this.codeBlocks.length > 0) {
-      this.codeBlocks.forEach((codeBlock) => {
-        codeBlock.write(writer);
-        writer.newLine();
-      });
-      if (this.functions.length > 0 || this.classes.length > 0) {
-        writer.newLine();
-      }
-    }
-
-    // Write functions
-    if (this.functions.length > 0) {
-      this.functions.forEach((func, index, array) => {
-        func.write(writer);
-        if (index < array.length - 1) {
-          writer.newLine();
-          writer.newLine();
-        }
-      });
-      if (this.classes.length > 0) {
-        writer.newLine();
-        writer.newLine();
-      }
-    }
-
-    // Write classes
-    if (this.classes.length > 0) {
-      this.classes.forEach((classDef, index, array) => {
-        classDef.write(writer);
-        if (index < array.length - 1) {
+    // Write all children in order
+    if (this.children.length > 0) {
+      this.children.forEach((child, index) => {
+        child.write(writer);
+        if (index < this.children.length - 1) {
           writer.newLine();
           writer.newLine();
         }

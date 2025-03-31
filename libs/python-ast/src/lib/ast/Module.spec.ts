@@ -127,7 +127,7 @@ describe("Module", () => {
     );
   });
 
-  it("should generate a complete module with all features", () => {
+  it("should generate a complete module with all features and maintain order", () => {
     const module = new Module({
       name: "app",
       docstring: "Main application module",
@@ -207,5 +207,16 @@ describe("Module", () => {
     module.addClass(appClass);
 
     expect(module.toString()).toMatchSnapshot();
+
+    // Additional test to verify order
+    const output = module.toString();
+    const codeBlockIndex = output.indexOf(
+      "logger = logging.getLogger(__name__)",
+    );
+    const functionIndex = output.indexOf("def configure_app");
+    const classIndex = output.indexOf("class Application:");
+
+    expect(codeBlockIndex).toBeLessThan(functionIndex);
+    expect(functionIndex).toBeLessThan(classIndex);
   });
 });
