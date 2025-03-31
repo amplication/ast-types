@@ -237,4 +237,113 @@ if __name__ == "__main__":
     expect(output).toContain("@property");
     expect(output).toContain("def is_admin(");
   });
+
+  describe("Complex Class Generation", () => {
+    it("should generate a valid Python class with methods and type hints", () => {
+      // Create a new module
+      const module = new Module({
+        name: "example",
+        docstring: "Example module demonstrating Python AST generation",
+      });
+
+      // Create class references for type hints
+      const strType = new ClassReference({ name: "str" });
+      const intType = new ClassReference({ name: "int" });
+      const optionalType = new ClassReference({
+        name: "Optional",
+        moduleName: "typing",
+      });
+
+      // Create a base class
+      const baseClass = new ClassReference({
+        name: "BaseClass",
+        moduleName: "base_module",
+      });
+
+      // Create the main class
+      const personClass = new ClassDef({
+        name: "Person",
+        bases: [baseClass],
+        docstring: "A class representing a person with name and age.",
+      });
+
+      // Add class attributes
+      personClass.addAttribute(
+        new Assign({
+          target: "default_age",
+          value: "0",
+          type: intType,
+          isClassVariable: true,
+        }),
+      );
+
+      // Add constructor
+      const initMethod = new FunctionDef({
+        name: "__init__",
+        parameters: [
+          new Parameter({ name: "self" }),
+          new Parameter({ name: "name", type: strType }),
+          new Parameter({
+            name: "age",
+            type: optionalType,
+            default_: "None",
+          }),
+        ],
+        docstring: "Initialize a Person instance.",
+      });
+
+      // Add constructor body
+      initMethod.addStatement(
+        new CodeBlock({
+          code: "self.name = name\nself.age = age if age is not None else self.default_age",
+        }),
+      );
+
+      personClass.addMethod(initMethod);
+
+      // Add a static method
+      const fromDictMethod = new FunctionDef({
+        name: "from_dict",
+        isStatic: true,
+        parameters: [
+          new Parameter({
+            name: "data",
+            type: new ClassReference({ name: "dict" }),
+          }),
+        ],
+        returnType: new ClassReference({ name: "Person" }),
+        docstring: "Create a Person instance from a dictionary.",
+      });
+
+      fromDictMethod.addStatement(
+        new CodeBlock({
+          code: 'return Person(data["name"], data.get("age"))',
+        }),
+      );
+
+      personClass.addMethod(fromDictMethod);
+
+      // Add an instance method with a decorator
+      const getInfoMethod = new FunctionDef({
+        name: "get_info",
+        parameters: [new Parameter({ name: "self" })],
+        returnType: strType,
+        decorators: [new Decorator({ name: "property" })],
+      });
+
+      getInfoMethod.addStatement(
+        new CodeBlock({
+          code: 'return f"{self.name} ({self.age} years old)"',
+        }),
+      );
+
+      personClass.addMethod(getInfoMethod);
+
+      // Add the class to the module
+      module.addClass(personClass);
+
+      // Generate the Python code and match against snapshot
+      expect(module.toString()).toMatchSnapshot();
+    });
+  });
 });

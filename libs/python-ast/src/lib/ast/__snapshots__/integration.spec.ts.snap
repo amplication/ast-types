@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Python AST Integration Complex Class Generation should generate a valid Python class with methods and type hints 1`] = `
+"from base_module import BaseClass
+from typing import Optional
+
+"""Example module demonstrating Python AST generation"""
+
+class Person(BaseClass):
+    """A class representing a person with name and age."""
+
+    default_age: int = 0
+
+    def __init__(self, name: str, age: Optional = None):
+        """Initialize a Person instance."""
+
+        self.name = name
+        self.age = age if age is not None else self.default_age
+
+    @staticmethod
+    def from_dict(data: dict) -> Person:
+        """Create a Person instance from a dictionary."""
+
+        return Person(data["name"], data.get("age"))
+
+    @property
+    def get_info(self) -> str:
+        return f"{self.name} ({self.age} years old)"
+"
+`;
+
 exports[`Python AST Integration should generate a complete, realistic Python file 1`] = `
 "from dataclasses import dataclass, field
 from datetime import datetime
