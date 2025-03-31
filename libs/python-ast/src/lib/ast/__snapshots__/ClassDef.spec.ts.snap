@@ -3,8 +3,8 @@
 exports[`ClassDef should generate a class with attributes 1`] = `
 "class Configuration:
     DEFAULT_TIMEOUT = 30
-        DEBUG = False
-    "
+    DEBUG = False
+"
 `;
 
 exports[`ClassDef should generate a class with decorators 1`] = `
@@ -13,7 +13,7 @@ exports[`ClassDef should generate a class with decorators 1`] = `
 @dataclass
 class Singleton:
     pass
-    "
+"
 `;
 
 exports[`ClassDef should generate a class with inheritance 1`] = `
@@ -21,14 +21,14 @@ exports[`ClassDef should generate a class with inheritance 1`] = `
 
 class Student(Person):
     pass
-    "
+"
 `;
 
 exports[`ClassDef should generate a class with methods 1`] = `
 "class Calculator:
     def add(self, a: int, b: int) -> int:
-            return a + b
-        "
+        return a + b
+"
 `;
 
 exports[`ClassDef should generate a complete class with multiple features 1`] = `
@@ -38,21 +38,21 @@ from models import BaseModel
 @dataclass
 class User(BaseModel):
     """A class representing a user in the system"""
-        
-        table_name = 'users'
-        
-        def __init__(self, username: str, email: str, is_active: bool = True):
-            self.username = username
+
+    table_name = 'users'
+
+    def __init__(self, username: str, email: str, is_active: bool = True):
+        self.username = username
         self.email = email
         self.is_active = is_active
-            
-        def __str__(self) -> str:
-            return f'User({self.username}, {self.email})'
-        "
+
+    def __str__(self) -> str:
+        return f'User({self.username}, {self.email})'
+"
 `;
 
 exports[`ClassDef should generate a simple class with docstring 1`] = `
 "class Person:
     """A class representing a person"""
-    "
+"
 `;

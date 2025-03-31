@@ -14,39 +14,39 @@ VERSION = "1.0.0"
 def configure_app(debug: bool = False):
     logger.info("Configuring app with debug=%s", debug)
     return {"debug": debug, "version": VERSION}
-    
+
 
 class Application:
     """Main application class"""
-        
-        def __init__(self, config: dict):
-            self.config = config
+
+    def __init__(self, config: dict):
+        self.config = config
         logger.info("Application initialized")
-            
-        def run(self):
-            logger.info("Running application %s", APP_NAME)
+
+    def run(self):
+        logger.info("Running application %s", APP_NAME)
         print("Application running...")
-        "
+"
 `;
 
 exports[`Module should generate a module with classes 1`] = `
 "class User:
     """User model"""
-    
+
 
 class Product:
     """Product model"""
-    "
+"
 `;
 
 exports[`Module should generate a module with functions 1`] = `
 "def square(x: float) -> float:
     return x * x
-    
+
 
 def cube(x: float) -> float:
     return x * x * x
-    "
+"
 `;
 
 exports[`Module should generate a module with global code 1`] = `

@@ -23,31 +23,29 @@ export class Writer implements IWriter {
   write(text: string): void {
     if (!text) return;
 
-    // If we're at the start of a line and have indentation, add it
-    if (this.lastCharacterIsNewline && this.indentLevel > 0) {
-      this.buffer.push(this.indentString.repeat(this.indentLevel));
-    }
-
     // Split text into lines and handle each line's indentation
     const lines = text.split("\n");
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
 
-      // Write the line
+      // Add indentation at the start of each line if needed
+      if (this.lastCharacterIsNewline && line.length > 0) {
+        this.buffer.push(this.indentString.repeat(this.indentLevel));
+      }
+
+      // Write the line content
       if (line.length > 0) {
         this.buffer.push(line);
       }
 
-      // If this isn't the last line, add a newline and prepare for indentation
+      // Add newline if this isn't the last line
       if (i < lines.length - 1) {
         this.buffer.push("\n");
-        if (this.indentLevel > 0) {
-          this.buffer.push(this.indentString.repeat(this.indentLevel));
-        }
+        this.lastCharacterIsNewline = true;
+      } else {
+        this.lastCharacterIsNewline = text.endsWith("\n");
       }
     }
-
-    this.lastCharacterIsNewline = text.endsWith("\n");
   }
 
   writeNode(node: IAstNode): void {
