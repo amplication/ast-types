@@ -152,4 +152,20 @@ describe("Writer", () => {
     const formatted = writer.formatCode("public   void   method()   {");
     expect(formatted).toBe("public void method() {");
   });
+
+  it("should correctly de-duplicate imports and references", () => {
+    writer.addReference(
+      new ClassReference({ name: "ArrayList", packageName: "java.util" }),
+    );
+    writer.addReference(
+      new ClassReference({ name: "ArrayList", packageName: "java.util" }),
+    );
+    writer.addImport("java.util.ArrayList");
+    writer.addImport("java.util.ArrayList");
+
+    const output = writer.toString();
+    expect(output.trim()).toBe(`package com.example;
+
+import java.util.ArrayList;`);
+  });
 });

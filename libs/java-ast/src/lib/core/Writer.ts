@@ -26,7 +26,7 @@ export class Writer implements IWriter {
   private indentLevel = 0;
   private buffer = "";
   private imports: Set<string> = new Set();
-  private references: Set<ClassReference> = new Set();
+  private references: Set<string> = new Set();
   private packageName: string;
   private skipPackageDeclaration: boolean;
 
@@ -111,7 +111,9 @@ export class Writer implements IWriter {
     if (reference.packageName === this.packageName) {
       return;
     }
-    this.references.add(reference);
+    // Sets compare objects by reference, so we need to
+    // convert to string before adding
+    this.references.add(`${reference.packageName}.${reference.name}`);
   }
 
   /**
@@ -155,11 +157,10 @@ export class Writer implements IWriter {
       result += `package ${this.packageName};\n\n`;
     }
 
-    // Write imports
-    const allImports = [...this.imports];
-    this.references.forEach((ref) => {
-      allImports.push(`${ref.packageName}.${ref.name}`);
-    });
+    // Combine imports with references, and remove duplicates
+    const allImports = [
+      ...new Set<string>([...this.imports, ...this.references]),
+    ];
 
     // Sort imports
     allImports.sort().forEach((importName) => {
