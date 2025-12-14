@@ -102,6 +102,83 @@ describe("Class", () => {
     expect(output).toContain("this.id = id;");
   });
 
+  it("should write constructor documentation if the constructor has it", () => {
+    const cls = new Class({
+      name: "ClassWithConstructor",
+      packageName: "com.example",
+      access: Access.Public,
+    });
+
+    cls.addConstructor({
+      access: Access.Public,
+      javadoc: "Some constructor",
+      parameters: [
+        new Parameter({
+          name: "id",
+          docs: "The id to set",
+          type: Type.long(),
+        }),
+      ],
+      body: new CodeBlock({ code: "this.id = id;" }),
+    });
+
+    cls.write(writer);
+    const output = writer.toString();
+
+    expect(output).toContain(" * Some constructor");
+    expect(output).toContain(" * @param id The id to set");
+  });
+
+  it("should write constructor documentation if the constructor doesn't, but the parameters do", () => {
+    const cls = new Class({
+      name: "ClassWithConstructor",
+      packageName: "com.example",
+      access: Access.Public,
+    });
+
+    cls.addConstructor({
+      access: Access.Public,
+      parameters: [
+        new Parameter({
+          name: "id",
+          docs: "The id to set",
+          type: Type.long(),
+        }),
+      ],
+      body: new CodeBlock({ code: "this.id = id;" }),
+    });
+
+    cls.write(writer);
+    const output = writer.toString();
+
+    expect(output).toContain(" * @param id The id to set");
+  });
+
+  it("should write constructor documentation if the constructor does but the parameters don't", () => {
+    const cls = new Class({
+      name: "ClassWithConstructor",
+      packageName: "com.example",
+      javadoc: "Some constructor",
+      access: Access.Public,
+    });
+
+    cls.addConstructor({
+      access: Access.Public,
+      parameters: [
+        new Parameter({
+          name: "id",
+          type: Type.long(),
+        }),
+      ],
+      body: new CodeBlock({ code: "this.id = id;" }),
+    });
+
+    cls.write(writer);
+    const output = writer.toString();
+
+    expect(output).toContain(" * Some constructor");
+  });
+
   it("should write a class with inheritance", () => {
     const cls = new Class({
       name: "Child",

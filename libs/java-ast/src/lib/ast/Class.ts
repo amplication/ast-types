@@ -58,6 +58,8 @@ export declare namespace Class {
     parameters: Parameter[];
     /** The access level of the constructor */
     access: Access;
+    /** Documentation/JavaDoc for the constructor */
+    javadoc?: string;
     /** Constructor annotations */
     annotations?: Annotation[];
     /** Whether this constructor calls another constructor with super() */
@@ -316,6 +318,25 @@ export class Class extends AstNode {
     writer: Writer,
     constructor: Class.Constructor,
   ): void {
+    // Write JavaDoc if provided
+    if (
+      constructor.javadoc ||
+      constructor.parameters.some((param) => param.docs)
+    ) {
+      writer.writeLine("/**");
+      if (constructor.javadoc) {
+        constructor.javadoc.split("\n").forEach((line) => {
+          writer.writeLine(` * ${line}`);
+        });
+      }
+      constructor.parameters.forEach((param) => {
+        if (param.docs) {
+          writer.writeLine(` * @param ${param.name} ${param.docs}`);
+        }
+      });
+      writer.writeLine(" */");
+    }
+
     // Write annotations
     if (constructor.annotations) {
       constructor.annotations.forEach((annotation) => {
